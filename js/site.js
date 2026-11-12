@@ -10,20 +10,41 @@ const parseDate = d => { const [y, m, dd] = String(d || "").split("-").map(Numbe
 const fmtDate = (d, long) => { const t = parseDate(d); if (!t) return ""; return long ? t.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "long", year: "numeric" }) : `${t.getDate()} ${MONTHS[t.getMonth()]} ${t.getFullYear()}`; };
 const today = () => { const t = new Date(); t.setHours(0, 0, 0, 0); return t; };
 const isPast = h => { const t = parseDate(h.date); return t && t < today(); };
-const link = u => u && /^https?:\/\//.test(u) ? u : "";
+// A link counts as set only if it is a full URL that goes somewhere specific.
+// Bare placeholders such as "https://forms.gle/" or "https://www.instagram.com/" are treated as not set yet.
+const PLACEHOLDER_HOSTS = ["forms.gle", "instagram.com", "www.instagram.com", "docs.google.com", "example.com"];
+const link = u => {
+  if (!u || !/^https?:\/\//.test(u)) return "";
+  try { const x = new URL(u); if (PLACEHOLDER_HOSTS.includes(x.hostname) && x.pathname.replace(/\/+$/, "") === "") return ""; } catch (e) { return ""; }
+  return u;
+};
 
 /* ---------- shared chrome ---------- */
 const menu = $(".menu-btn"), nav = $("#nav");
-if (menu) menu.onclick = () => { const o = nav.classList.toggle("open"); menu.setAttribute("aria-expanded", o); menu.textContent = o ? "Close" : "Menu"; };
+const setMenu = o => { nav.classList.toggle("open", o); menu.setAttribute("aria-expanded", o); menu.textContent = o ? "Close" : "Menu"; document.querySelector(".site-head").classList.toggle("menu-open", o); };
+if (menu) {
+  menu.onclick = () => setMenu(!nav.classList.contains("open"));
+  nav.addEventListener("click", e => { if (e.target.closest("a")) setMenu(false); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && nav.classList.contains("open")) { setMenu(false); menu.focus(); } });
+}
 document.querySelectorAll("[data-year]").forEach(e => e.textContent = new Date().getFullYear());
 
 function applySite(site) {
-  document.querySelectorAll("[data-flag]").forEach(el => el.classList.toggle("hidden", site[el.dataset.flag] === false));
   document.querySelectorAll("[data-text]").forEach(el => el.textContent = site[el.dataset.text] || "");
-  document.querySelectorAll("[data-link]").forEach(el => {
-    const k = el.dataset.link, v = site[k];
-    const href = k === "email" ? (v ? "mailto:" + v : "") : link(v);
-    if (href) { el.href = href; el.classList.remove("hidden"); } else el.classList.add("hidden");
+  document.querySelectorAll("[data-flag],[data-link]").forEach(el => {
+    let show = !(el.dataset.flag && site[el.dataset.flag] === false);
+    const k = el.dataset.link;
+    if (k) {
+      const v = site[k], href = k === "email" ? (v ? "mailto:" + v : "") : link(v);
+      if (href) el.href = href;
+      else if (el.dataset.unset && show) {
+        // Nothing to link to yet: say so instead of pointing somewhere made up.
+        const note = document.createElement("span");
+        note.className = "unset"; note.textContent = el.dataset.unset;
+        el.replaceWith(note); return;
+      } else show = false;
+    }
+    el.classList.toggle("hidden", !show);
   });
 }
 
@@ -34,10 +55,10 @@ function hikeCard(h, site) {
   const st = h.status || "open";
   const form = link(h.form);
   const cta = st === "open" && form
-    ? `<a class="btn dark" href="${esc(form)}" target="_blank" rel="noopener">Sign up<span class="sr-only"> for ${esc(h.title)}</span> &rarr;</a>`
+    ? `<a class="btn cta" href="${esc(form)}" target="_blank" rel="noopener">Sign up<span class="sr-only"> for ${esc(h.title)}</span> &rarr;</a>`
     : st === "full" && form
       ? `<a class="btn ghost" href="${esc(form)}" target="_blank" rel="noopener">Join the waitlist</a>`
-      : `<span class="btn" aria-disabled="true">${st === "soon" ? "Opening soon" : "Sign-ups closed"}</span>`;
+      : `<span class="btn" aria-disabled="true">${st === "soon" ? "Opening soon" : (st === "open" || st === "full") ? "Sign-up link coming soon" : "Sign-ups closed"}</span>`;
   const facts = [["When", [fmtDate(h.date, true), h.time].filter(Boolean).join(" · ")], ["Meet", h.meet], ["Distance", h.distance], ["Time", h.duration]]
     .filter(f => f[1]).map(f => `<div><dt>${f[0]}</dt><dd>${esc(f[1])}</dd></div>`).join("");
   return `<article class="hike reveal">
@@ -87,7 +108,7 @@ function renderBody(text) {
 function orderBar(site) {
   const f = link(site.merchForm), open = site.merchOpen !== false;
   return `<div><b>${open ? "Ready to order?" : "Orders are closed for now"}</b><p>${open ? "Fill in the Google Form with your items and sizes. We'll confirm by email and arrange collection on campus." : "We'll post on Instagram when the next batch opens."}</p></div>
-    ${open && f ? `<a class="btn" href="${esc(f)}" target="_blank" rel="noopener">Order merch &rarr;</a>` : `<span class="btn" aria-disabled="true">Orders closed</span>`}`;
+    ${open && f ? `<a class="btn" href="${esc(f)}" target="_blank" rel="noopener">Order merch &rarr;</a>` : `<span class="btn" aria-disabled="true">${open ? "Order form coming soon" : "Orders closed"}</span>`}`;
 }
 
 /* ---------- reveal on scroll ---------- */
@@ -113,15 +134,14 @@ function lightbox(src, alt) {
 (async () => {
   const [site, hikes, posts, merch] = await Promise.all([get("site"), get("hikes"), get("posts"), get("merch")]);
   const S = site || {}, H = hikes || [], P = byNewest(posts || []), M = merch || [];
-  window.MCR = { site: S, posts: P, hikes: H };
+  window.MCR = { site: S, posts: P, hikes: H, merch: M, util: { esc, link, fmtDate, parseDate, isPast, upcoming, MONTHS } };
   applySite(S);
   window.dispatchEvent(new CustomEvent("mcr:data", { detail: window.MCR }));
 
   if (page === "index") {
-    const up = upcoming(H).slice(0, 2);
+    // The rest of the home page (journey, explorer, story) is filled in by js/home.js and friends.
+    const up = upcoming(H).slice(0, 4);
     $("#nextHikes").innerHTML = up.length ? up.map(h => hikeCard(h, S)).join("") : noHikes;
-    $("#latestPosts").innerHTML = postGrid(P.slice(0, 3));
-    $("#merchImgs").innerHTML = M.filter(m => m.image).slice(0, 2).map(m => `<img src="${esc(m.image)}" alt="${esc(m.name)}" loading="lazy" width="800" height="800">`).join("");
   }
   if (page === "hikes") {
     const up = upcoming(H);

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Blog · MC Rangers</title>
 <meta name="description" content="A trail story from MC Rangers.">
-<meta name="theme-color" content="#0d2124">
+<meta name="theme-color" content="#0e261f">
 <meta property="og:title" content="Blog · MC Rangers">
 <meta property="og:description" content="A trail story from MC Rangers.">
 <meta property="og:type" content="website">
@@ -13,18 +13,20 @@
 <link rel="icon" type="image/png" href="icons/favicon-64.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/site.css">
 </head>
 <body data-page="blog">
 <a class="skip" href="#main">Skip to content</a>
-<header class="site-head">
+<header class="site-head full-nav">
   <div class="wrap">
-    <a class="brand" href="index.html" aria-label="MC Rangers home"><img src="icons/logo-sm.png" alt="MC Rangers" width="240" height="119"></a>
+    <a class="brand" href="index.html" aria-label="MC Rangers home"><img src="icons/logo-sm.png" alt="" width="240" height="119"><span class="brand-name">MC Rangers</span></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Main">
-      <a href="index.html">Home</a><a href="hikes.html">Hikes</a><a href="map.html" data-flag="showMap">Map</a><a href="blog.html" aria-current="page">Blog</a><a href="merch.html" data-flag="showMerch">Merch</a>
-      <a href="https://mcrangers.github.io/hike-bingo/" data-flag="showBingo" class="hidden">Trail Bingo</a>
+      <a href="index.html#journey">Explore</a><a href="hikes.html">Upcoming hikes</a><a href="index.html#story">Our story</a><a href="index.html#tools">Trail tools</a>
+      <span class="nav-2"><a href="blog.html" aria-current="page">Blog</a><a href="map.html" data-flag="showMap">Map</a><a href="merch.html" data-flag="showMerch">Merch</a></span>
+      <a class="btn cta nav-cta" href="hikes.html">Join a hike</a>
     </nav>
   </div>
 </header>
@@ -51,13 +53,18 @@
   </section>
 </main>
 <footer class="site-foot">
-  <svg class="ridge-top" viewBox="0 0 1440 56" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0 H1440 V40 L1330 14 L1240 34 L1130 4 L1030 30 L940 18 L840 42 L730 10 L640 32 L520 6 L420 36 L300 16 L190 38 L90 12 L0 30Z" fill="var(--cream)"/></svg>
   <div class="wrap">
+    <div class="foot-call">
+      <div><h2>See you on the trail.</h2><p>Pick a hike, bring water and good shoes, and come say hi.</p></div>
+      <a class="btn cta" href="hikes.html">Join a hike</a>
+    </div>
     <div class="foot-grid">
-      <div><img src="icons/logo-sm.png" alt="MC Rangers" width="240" height="119"><p>Hiking at CUHK and across Hong Kong.</p></div>
+      <div><img src="icons/logo-sm.png" alt="MC Rangers" width="240" height="119" loading="lazy"><p>Hiking at CUHK and across Hong Kong.</p></div>
       <nav class="foot-links" aria-label="Footer">
-        <a href="hikes.html">Hikes</a><a href="map.html" data-flag="showMap">Map</a><a href="blog.html">Blog</a><a href="merch.html" data-flag="showMerch">Merch</a>
-        <a href="#" data-link="instagram" target="_blank" rel="noopener">Instagram</a>
+        <a href="hikes.html">Hikes</a><a href="blog.html">Blog</a><a href="map.html" data-flag="showMap">Map</a><a href="merch.html" data-flag="showMerch">Merch</a>
+        <a href="#" data-link="trailBingo" data-flag="showBingo" target="_blank" rel="noopener" class="hidden">Trail Bingo</a>
+        <a href="#" data-link="photoGuide" target="_blank" rel="noopener" class="hidden">Hike Photo Guide</a>
+        <a href="#" data-link="instagram" target="_blank" rel="noopener" class="hidden">Instagram</a>
         <a href="#" data-link="email" class="hidden">Email us</a>
       </nav>
     </div>
