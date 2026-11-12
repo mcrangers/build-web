@@ -1,0 +1,99 @@
+{
+  "_about": "Third-party photos and map data used on the site. Shown in the footer credits. Photos were resized and cropped from the originals on Wikimedia Commons. Remove an entry when you replace that image with a club photo.",
+  "photos": [
+    {
+      "file": "images/hero-ridge-2400.webp",
+      "usedFor": "Homepage hero",
+      "title": "Clear Water Bay (bay) 07.jpg",
+      "author": "Underwaterbuffalo",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Clear_Water_Bay_(bay)_07.jpg"
+    },
+    {
+      "file": "images/journey-cuhk.webp",
+      "usedFor": "Journey: CUHK",
+      "title": "Gfp-china-hong-kong-view-from-cuhk.jpg",
+      "author": "Yinan Chen",
+      "license": "Public Domain",
+      "licenseUrl": "",
+      "source": "https://commons.wikimedia.org/wiki/File:Gfp-china-hong-kong-view-from-cuhk.jpg"
+    },
+    {
+      "file": "images/journey-maonshan.webp",
+      "usedFor": "Journey: Ma On Shan",
+      "title": "Ngong Ping Plateau and Sai Kung.jpg",
+      "author": "IndentFirstParagraph",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Ngong_Ping_Plateau_and_Sai_Kung.jpg"
+    },
+    {
+      "file": "images/journey-saikung.webp",
+      "usedFor": "Journey: Sai Kung East",
+      "title": "Sai Kung Geo park.jpg",
+      "author": "cattan2011",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Sai_Kung_Geo_park.jpg"
+    },
+    {
+      "file": "images/journey-lionrock.webp",
+      "usedFor": "Journey: Lion Rock",
+      "title": "Hong Kong views from Lion Rock (51062796116).jpg",
+      "author": "Raita Futo from Tokyo, Japan",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Hong_Kong_views_from_Lion_Rock_(51062796116).jpg"
+    },
+    {
+      "file": "images/journey-taimoshan.webp",
+      "usedFor": "Journey: Tai Mo Shan",
+      "title": "Views from Needle Hill 10.jpg",
+      "author": "Underwaterbuffalo",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Views_from_Needle_Hill_10.jpg"
+    },
+    {
+      "file": "images/journey-lantau.webp",
+      "usedFor": "Journey: Sunset Peak",
+      "title": "Sunset Peak.JPG",
+      "author": "Travis So",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Sunset_Peak.JPG"
+    },
+    {
+      "file": "images/journey-dragonsback.webp",
+      "usedFor": "Journey: Dragon’s Back",
+      "title": "Dragons peak trail.jpg",
+      "author": "kallerna",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Dragons_peak_trail.jpg"
+    }
+  ],
+  "map": [
+    {
+      "what": "Coastline, reservoirs and trail lines",
+      "credit": "© OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "what": "Coastline tiles",
+      "credit": "OpenFreeMap, © OpenMapTiles",
+      "url": "https://openfreemap.org/"
+    },
+    {
+      "what": "Trail relations",
+      "credit": "Waymarked Trails",
+      "url": "https://hiking.waymarkedtrails.org/"
+    },
+    {
+      "what": "Contours",
+      "credit": "Mapzen / Tilezen terrain tiles",
+      "url": "https://github.com/tilezen/joerd/blob/master/docs/attribution.md"
+    }
+  ]
+}

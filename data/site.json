@@ -17,5 +17,7 @@
     "appId": ""
   },
   "commentAdmins": [],
-  "showMap": true
+  "showMap": true,
+  "trailBingo": "https://mcrangers.github.io/hike-bingo/",
+  "photoGuide": "https://mcrangers.org/hike-guide/"
 }
